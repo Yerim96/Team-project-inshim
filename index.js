@@ -5,6 +5,7 @@ const port = 8800;
 //템플릿
 app.set("view engine", "ejs");
 app.use("/views", express.static(__dirname + "/views"));
+app.use(express.static("public"));
 
 //body-parser
 app.use(express.urlencoded({ extended: true }));

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/register.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>회원가입</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h2>회원가입</h2>
+    <div>
+      <form name="register">
+        <label for="user_id">아이디</label>
+        <br />
+        <input
+          name="user_id"
+          id="user_id"
+          type="text"
+          placeholder="아이디를 입력해주세요"
+        />
+        <br />
+        <button type="button" id="check_user_id" onclick="checkUserId()">
+          아이디 중복 검사
+        </button>
+        <br />
+        <label for="user_pw">비밀번호</label>
+        <br />
+        <input
+          name="user_pw"
+          id="user_pw"
+          type="password"
+          placeholder="비밀번호를 입력해주세요"
+        />
+        <br />
+        <label for="user_name">이름</label>
+        <br />
+        <input
+          name="user_name"
+          id="user_name"
+          type="text"
+          placeholder="이름을 입력해주세요"
+        />
+        <br />
+        <label for="user_country">국적</label>
+        <br />
+        <input
+          name="user_country"
+          id="user_country"
+          type="text"
+          placeholder="국적을 입력해주세요"
+        />
+        <br />
+        <button type="button" onclick="registFunc()">회원가입</button>
+      </form>
+    </div>
+    <script>
+      const form = document.forms["register"];
+      const userId = form.user_id.value;
+      const userPw = form.user_pw.value;
+      const userName = form.user_name.value;
+      const userCountry = form.user_country.value;
+
+      async function checkUserId() {
+        let idRegex = /^[a-zA-Z0-9-_]{4,12}$/;
+        const userIdInput = form.user_id;
+        const userId = userIdInput.value;
+
+        if (userId === "") {
+          alert("아이디를 입력해주세요");
+          userIdInput.focus();
+          return false;
+        }
+        if (!idRegex.test(userId)) {
+          alert(
+            "아이디는 4~12자리의 영문, 숫자, 대시(-), 밑줄(_)만 사용 가능합니다."
+          );
+          userIdInput.focus();
+          return false;
+        } else {
+          try {
+            let response = await axios({
+              method: "post",
+              url: "/register/checkUserId",
+              data: {
+                user_id: userId,
+              },
+            }).then((res) => {
+              console.log(res.data.result);
+            });
+          } catch (error) {
+            alert("아이디 중복 검사 중 오류 발생하였습니다.");
+            userIdInput.focus();
+          }
+        }
+      }
+
+      function registFunc() {
+        let passwordRegex =
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
+
+        if (
+          userId === "" ||
+          userPw === "" ||
+          userName === "" ||
+          userCountry === ""
+        ) {
+          alert("모든 입력 칸을 채워주세요.");
+          return false;
+        } else if (!passwordRegex.test(password)) {
+          alert(
+            "비밀번호는 8~20자리의 영문 대문자, 소문자, 숫자, 특수문자(!@#$%^&*)가 포함되어야 합니다."
+          );
+          return false;
+        } else {
+          axios({
+            method: "post",
+            url: "/register",
+            data: {
+              user_id: userId,
+              user_pw: userPw,
+              user_name: userName,
+              user_country: userCountry,
+            },
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

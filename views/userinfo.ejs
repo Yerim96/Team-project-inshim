@@ -72,15 +72,8 @@
     <hr>
     <section>
         <div class="section-result">
-            <div>sibal</div>
-            <div>ahaha</div>
-            <div>aaa</div>
         </div>
     </section>
-    <div>
-        <%=detailTable[0]%>
-            <%=routeCity%>
-    </div>
     <script>
         function submitValue() {
             const form = document.forms["submit"];
@@ -92,9 +85,25 @@
                     day: form.day.value
                 }
             }).then((res) => {
-                // console.log('res.data', res.data.city)
-                // console.log('detail', detailTable[0].detail_comment)
-                document.querySelector('.section-result').innerHTML = res.data.detailTable;
+
+                // const newDiv = document.createElement('div');
+                // newDiv.innerHTML = res.data.detailTable;
+                // document.querySelector('.section-result').appendChild(newDiv);
+
+                //section-result의 개수
+                const sectionResult = document.querySelectorAll('.section-result div').length;
+                if (sectionResult > 0) {
+                    for (let i = 0; i < sectionResult; i++) {
+                        document.querySelector('.section-result div').remove();
+                    }
+                }
+                for (let i = 0; i < res.data.length; i++) {
+                    const newDiv = document.createElement('div');
+                    newDiv.innerHTML = res.data[i];
+                    document.querySelector('.section-result').appendChild(newDiv);
+                }
+
+
             })
         }
 

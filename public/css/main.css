@@ -41,7 +41,7 @@
   --font-weight-bold: 700;
   --font-weight-thin: 300;
   --main-color: black;
-  --highlight-color: #b9f3e4;
+  --highlight-color: #83a69d;
   --white: #fff;
   --lightblack: #858585;
 }
@@ -125,8 +125,7 @@ html {
   padding: 30px;
   padding-top: 40px;
   padding-bottom: 10px;
-  font-size: 16px;
-  font-weight: var(--font-weight-thin);
+  font-size: var(--font-md);
   text-decoration: none;
   color: var(--main-color);
 }

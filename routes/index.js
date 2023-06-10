@@ -9,4 +9,8 @@ router.get("/login", controller.Cget_login);
 
 router.get("/register", controller.Cget_register);
 
+///
+router.get("/intro", controller.Cget_intro);
+///
+
 module.exports = router;

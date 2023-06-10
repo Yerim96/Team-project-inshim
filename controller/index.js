@@ -9,3 +9,9 @@ exports.Cget_login = (req, res) => {
 exports.Cget_register = (req, res) => {
   res.render("register");
 };
+
+///
+exports.Cget_intro = (req, res) => {
+  res.render("intro");
+};
+///

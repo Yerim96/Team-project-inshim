@@ -25,9 +25,11 @@ app.use(
 //routes
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
+const essayRouter = require("./routes/essay");
 
-app.use("/", indexRouter);
-app.use("/", userRouter);
+app.use("/inshim", indexRouter);
+app.use("/inshim", userRouter);
+app.use("/inshim", essayRouter);
 
 app.get("*", function (req, res) {
   res.render("404");

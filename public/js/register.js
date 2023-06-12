@@ -24,7 +24,7 @@ async function checkUserId() {
     try {
       let response = await axios({
         method: "post",
-        url: "/register/checkUserId",
+        url: "/inshim/register/checkUserId",
         data: {
           user_id: userId,
         },
@@ -61,7 +61,7 @@ function registFunc() {
   } else {
     axios({
       method: "post",
-      url: "/register",
+      url: "/inshim/register",
       data: {
         user_id: userId,
         user_pw: userPw,
@@ -71,7 +71,7 @@ function registFunc() {
     }).then((res) => {
       if (res.data.result) {
         alert(res.data.message);
-        location.href = "/login";
+        location.href = "/inshim/login";
       } else {
         alert(res.data.message);
       }

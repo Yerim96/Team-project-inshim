@@ -42,23 +42,30 @@ const getHashedPassword = (inputPassword, salt) => {
   });
 };
 
-exports.Cpost_checkUserId = async (req, res) => {
-  const user_id = req.body.user_id;
+const checkUserIdExists = async (user_id) => {
   const user = await models.User.findOne({
     where: { user_id },
   });
 
-  if (user !== null) {
-    return true;
+  return user !== null;
+};
+
+exports.Cpost_checkUserId = async (req, res) => {
+  const user_id = req.body.user_id;
+  const exists = await checkUserIdExists(user_id);
+
+  if (exists) {
     res.send({ result: true, message: "이미 사용중인 아이디입니다." });
   } else {
-    return false;
-    res.send({ result: true });
+    res.send({
+      result: false,
+      message: "사용 가능한 아이디 입니다. 계속 진행해 주세요.",
+    });
   }
 };
 
 exports.Cpost_register = async (req, res) => {
-  const isUserIdExist = await checkUserId(req.body.user_id);
+  const isUserIdExist = await checkUserIdExists(req.body.user_id);
 
   if (isUserIdExist) {
     res.send({ result: false, message: "이미 사용 중인 아이디입니다." });
@@ -80,7 +87,7 @@ exports.Cpost_register = async (req, res) => {
     } else {
       res.send({
         result: false,
-        message: "회언가입에 실패했습니다. 다시 시도해주세요.",
+        message: "회원가입에 실패했습니다. 다시 시도해주세요.",
       });
     }
   }

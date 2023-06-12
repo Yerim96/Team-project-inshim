@@ -10,4 +10,6 @@ router.post("/register/checkUserId", controller.Cpost_checkUserId);
 
 router.post("/mypage/logout", controller.Cpost_logout);
 
+router.post("/mypage", controller.getUserInfo);
+
 module.exports = router;

@@ -26,13 +26,11 @@ function loginFunc() {
     },
   }).then((res) => {
     if (res.data.result) {
-      const loggedin_user = {
-        loggedin_userinfo_id: res.data.loggedin_userinfo_id,
-        loggedin_user_name: res.data.loggedin_user_name,
-      };
-
       alert(res.data.message);
-      sessionStorage.setItem("loggedin_user", JSON.stringify(loggedin_user));
+      sessionStorage.setItem(
+        "loggedin_user",
+        JSON.stringify(res.data.loggedin_user)
+      );
       location.href = "/inshim";
     } else {
       alert(res.data.message);

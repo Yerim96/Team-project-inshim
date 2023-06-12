@@ -9,18 +9,23 @@
   </head>
   <body>
     <h3>회원 정보</h3>
+    <div id="user_info">
+      <div id="user_id">
+        아이디:
+        <p id="user_id_text"></p>
+      </div>
+      <div id="user_name">
+        이름:
+        <p id="user_name_text"></p>
+      </div>
+      <div id="user_country">
+        국적:
+        <p id="user_country_text"></p>
+      </div>
+    </div>
 
+    <button type="button" onclick="pwChangeFunc()">비밀번호 변경</button>
     <button type="button" onclick="logoutFunc()">로그아웃</button>
-    <script>
-      function logoutFunc() {
-        axios({
-          method: "post",
-          url: "/mypage/logout",
-          data: {
-            loggedin_user: sessionStorage.getItem("loggedin_user"),
-          },
-        });
-      }
-    </script>
+    <script src="/js/mypage.js"></script>
   </body>
 </html>

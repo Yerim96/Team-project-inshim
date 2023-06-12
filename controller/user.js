@@ -111,15 +111,15 @@ exports.Cpost_login = async (req, res) => {
     const hashedPassword = await getHashedPassword(inputPassword, salt);
 
     if (dbPassword === hashedPassword) {
-      req.session.loggedin = true;
-      req.session.userinfo_id = result.dataValues.userinfo_id;
-      req.session.user_name = result.dataValues.user_name;
+      req.session.loggedin_user = {
+        userinfo_id: result.dataValues.userinfo_id,
+        user_name: result.dataValues.user_name,
+      };
       req.session.save(() => {
         res.send({
           result: true,
           message: "로그인에 성공했습니다.",
-          loggedin_userinfo_id: result.dataValues.userinfo_id,
-          loggedin_user_name: result.dataValues.user_name,
+          loggedin_user: req.session.loggedin_user,
         });
       });
     } else {
@@ -132,6 +132,22 @@ exports.Cpost_login = async (req, res) => {
 };
 
 exports.Cpost_logout = async (req, res) => {
-  console.log(req.body.loggedin_user);
-  console.log(req.body.loggedin_user.loggedin_user_name);
+  req.session.destroy(function () {
+    req.session;
+  });
+  res.send({ result: true, message: "로그아웃에 성공했습니다." });
+};
+
+exports.getUserInfo = async (req, res) => {
+  const userInfo = await models.User.findOne({
+    where: {
+      userinfo_id: req.body.userinfo_id,
+    },
+  });
+  res.send({
+    userinfo_id: userInfo.userinfo_id,
+    user_id: userInfo.user_id,
+    user_name: userInfo.user_name,
+    user_country: userInfo.user_country,
+  });
 };

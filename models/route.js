@@ -16,11 +16,7 @@ const Route = (Sequelize, DataTypes) => {
       route_day: {
         type: DataTypes.STRING(20),
         allowNull: false,
-      },
-      route_start: {
-        type: DataTypes.STRING(20),
-        allowNull: false,
-      },
+      }
     },
     {
       tableName: "route",

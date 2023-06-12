@@ -59,10 +59,12 @@
             user_pw: form.user_pw.value,
           },
         }).then((res) => {
-          console.log(res.data.result);
-          console.log(res.data.message);
-          console.log(res.data.loggedin_user_name);
-          location.href = "/";
+          if (res.data.result) {
+            alert(res.data.message);
+            location.href = "/";
+          } else {
+            alert(res.data.message);
+          }
         });
       }
     </script>

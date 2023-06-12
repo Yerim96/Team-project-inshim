@@ -13,10 +13,7 @@ const detail = function (Sequelize, DataTypes) {
                 type: DataTypes.TEXT,
                 allowNull: false
             },
-            detail_pic: {
-                type: DataTypes.TEXT,
-                allowNull: false
-            }
+
         },
         {
             tableName: 'detail',

@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css" type="text/css">
+    <link rel="stylesheet" href="/css/userinfo.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-
     <title>Document</title>
 </head>
 
@@ -22,19 +20,19 @@
                 <li><a href="">예약조회</a></li>
             </ul>
             <div class="sub-login">
-                <a href="">로그인/회원가입</a>
+                <a href="/inshim/login">로그인/회원가입</a>
             </div>
         </nav>
     </header>
     <header>
         <nav class="main-header">
             <div class="header-logo">
-                <a href="#">INSHIM</a>
+                <a href="/inshim">INSHIM</a>
             </div>
             <ul class="main-menu">
                 <li><a href="">지역소개</a></li>
-                <li><a href="/userinfo" style="color: #B9F3E4;">코스보기</a></li>
-                <li><a href="">후기보기</a></li>
+                <li><a href="/inshim/userinfo" style="color: #B9F3E4;">코스보기</a></li>
+                <li><a href="/inshim/essay">후기보기</a></li>
                 <li><a href="">프로모션</a></li>
             </ul>
         </nav>
@@ -82,7 +80,7 @@
             const form = document.forms["submit"];
             axios({
                 method: 'POST',
-                url: '/userinfo',
+                url: '/inshim/userinfo',
                 data: {
                     city: form.city.value,
                     day: form.day.value

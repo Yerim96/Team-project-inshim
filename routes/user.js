@@ -12,4 +12,6 @@ router.post("/mypage/logout", controller.Cpost_logout);
 
 router.post("/mypage", controller.getUserInfo);
 
+router.post("/mypage/changePassword", controller.Cpost_changePassword);
+
 module.exports = router;

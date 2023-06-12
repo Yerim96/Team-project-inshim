@@ -23,8 +23,22 @@
         <p id="user_country_text"></p>
       </div>
     </div>
+    <form id="change_password_form" name="change_password_form">
+      <label for="current_password">현재 비밀번호:</label>
+      <input
+        type="password"
+        id="current_password"
+        name="currentPassword"
+        required
+      />
+      <br />
+      <label for="new_password">새로운 비밀번호:</label>
+      <input type="password" id="new_password" name="newPassword" required />
+      <br />
+      <button type="button" onclick="pwChangeFunc()">비밀번호 변경</button>
+    </form>
+    <div id="result"></div>
 
-    <button type="button" onclick="pwChangeFunc()">비밀번호 변경</button>
     <button type="button" onclick="logoutFunc()">로그아웃</button>
     <script src="/js/mypage.js"></script>
   </body>

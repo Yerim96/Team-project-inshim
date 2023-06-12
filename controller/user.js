@@ -42,6 +42,56 @@ const getHashedPassword = (inputPassword, salt) => {
   });
 };
 
+exports.Cpost_changePassword = async (req, res) => {
+  const userinfo_id = req.body.userinfo_id;
+  const currentPassword = req.body.current_password;
+  const newPassword = req.body.new_password;
+
+  const userInfo = await models.User.findOne({
+    where: {
+      userinfo_id,
+    },
+  });
+
+  if (!userInfo) {
+    res.send({ result: false, message: "사용자를 찾을 수 없습니다." });
+    return false;
+  } else {
+    const dbPassword = userInfo.dataValues.user_pw;
+    const salt = userInfo.dataValues.user_salt;
+    const hashedCurrentPassword = await getHashedPassword(
+      currentPassword,
+      salt
+    );
+
+    if (dbPassword !== hashedCurrentPassword) {
+      res.send({
+        result: false,
+        message: "현재 비밀번호가 일치하지 않습니다.",
+      });
+      return false;
+    } else {
+      const { hashedPassword, salt: newSalt } = await createHashedPassword(
+        newPassword
+      );
+
+      await models.User.update(
+        {
+          user_pw: hashedPassword,
+          user_salt: newSalt,
+        },
+        {
+          where: {
+            userinfo_id,
+          },
+        }
+      );
+
+      res.send({ result: true, message: "비밀번호가 변경되었습니다." });
+    }
+  }
+};
+
 const checkUserIdExists = async (user_id) => {
   const user = await models.User.findOne({
     where: { user_id },

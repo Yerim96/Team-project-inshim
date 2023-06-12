@@ -23,6 +23,10 @@ const userinfo = function (Sequelize, DataTypes) {
             user_country: {
                 type: DataTypes.STRING(20),
                 allowNull: false
+            },
+            user_salt: {
+                type: DataTypes.STRING(255),
+                allowNull: false
             }
         },
         {

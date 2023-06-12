@@ -15,13 +15,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   session({
-    key: "sid",
     secret: "secret",
     resave: false,
     saveUninitialized: true,
-    cookie: {
-      maxAge: 24000 * 60 * 60,
-    },
+    cookie: { secure: false, maxAge: 24 * 60 * 60 * 30 },
   })
 );
 

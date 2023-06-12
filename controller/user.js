@@ -2,6 +2,7 @@ const models = require("../models");
 const { Op } = require("sequelize");
 const crypto = require("crypto");
 const session = require("express-session");
+const cookie = require("cookie-parser");
 
 const createSalt = () => {
   return new Promise((resolve, reject) => {
@@ -91,18 +92,39 @@ exports.Cpost_login = async (req, res) => {
       user_id: req.body.user_id,
     },
   });
-
-  const dbPassword = result.dataValues.user_pw;
-  const inputPassword = req.body.user_pw;
-  const salt = result.dataValues.user_salt;
-  const hashedPassword = await getHashedPassword(inputPassword, salt);
-
-  if (dbPassword === hashedPassword) {
-    res.send({ result: true, message: "로그인에 성공했습니다." });
-  } else {
+  if (result === null) {
     res.send({
       result: false,
       message: "아이디 혹은 비밀번호가 맞지 않습니다.",
     });
+  } else {
+    const dbPassword = result.dataValues.user_pw;
+    const inputPassword = req.body.user_pw;
+    const salt = result.dataValues.user_salt;
+    const hashedPassword = await getHashedPassword(inputPassword, salt);
+
+    if (dbPassword === hashedPassword) {
+      req.session.loggedin = true;
+      req.session.userinfo_id = result.dataValues.userinfo_id;
+      req.session.user_name = result.dataValues.user_name;
+      req.session.save(() => {
+        res.send({
+          result: true,
+          message: "로그인에 성공했습니다.",
+          loggedin_user_name: result.dataValues.user_name,
+        });
+      });
+    } else {
+      res.send({
+        result: false,
+        message: "아이디 혹은 비밀번호가 맞지 않습니다.",
+      });
+    }
   }
+};
+
+exports.Cpost_logout = async (req, res) => {
+  req.session.destroy((err) => {
+    res.redirect("/");
+  });
 };

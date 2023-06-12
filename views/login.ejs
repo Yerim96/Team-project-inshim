@@ -34,6 +34,23 @@
     <script>
       const form = document.forms["login"];
       function loginFunc() {
+        const userIdInput = form.user_id;
+        const userId = userIdInput.value;
+        const userPwInput = form.user_pw;
+        const userPw = userPwInput.value;
+
+        if (userId === "") {
+          alert("아이디를 입력해주세요");
+          userIdInput.focus();
+          return false;
+        }
+
+        if (userPw === "") {
+          alert("비밀번호를 입력해주세요");
+          userPwInput.focus();
+          return false;
+        }
+
         axios({
           method: "post",
           url: "/login",
@@ -41,6 +58,11 @@
             user_id: form.user_id.value,
             user_pw: form.user_pw.value,
           },
+        }).then((res) => {
+          console.log(res.data.result);
+          console.log(res.data.message);
+          console.log(res.data.loggedin_user_name);
+          location.href = "/";
         });
       }
     </script>

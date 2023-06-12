@@ -52,6 +52,9 @@ html {
   font-family: "SUITE-Regular", sans-serif;
 }
 
+body {
+  margin: 0;
+}
 /* header */
 .sub-header {
   display: flex;
@@ -137,11 +140,9 @@ html {
 .flex-box {
   display: flex;
   flex-direction: row;
-  padding: 10px;
   position: relative;
-  top: 50%;
-  left: 18%;
-  /* transform: translate(-50%, -50%); */
+  margin-left: 15%;
+  margin-right: 15%;
 }
 
 .box {
@@ -203,12 +204,16 @@ html {
 footer {
   width: 100%;
   height: auto;
-  padding: 35px;
-  padding-left: 370px;
-  margin: -10px;
   margin-top: 20px;
   font-size: var(--font-sm);
   background-color: #f7f7f7;
+}
+
+.inner-footerbox {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding: 35px;
 }
 footer .footer-logo {
   /* height: 30px; */

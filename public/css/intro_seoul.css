@@ -87,20 +87,28 @@ body {
   align-items: center;
   justify-content: center;
   width: 150px;
-  height: 50px;
+  height: 150px;
   text-decoration: none;
   text-align: center;
   color: rgb(52, 52, 52);
   background-color: rgba(255, 255, 255, 0.458);
   font-size: var(--font-md);
   font-weight: bold;
-  border: 1px solid rgb(52, 52, 52);
-  padding-left: 10px;
-  padding-right: 10px;
   margin: 50px;
-  border-radius: 10px;
+  border-radius: 75px;
+  opacity: 0;
+  animation: fade-in 1.5s ease-in-out forwards;
 }
 
 .button a:hover {
   color: white;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

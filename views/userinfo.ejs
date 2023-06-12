@@ -70,6 +70,9 @@
         <button class="button" type="button" onclick="submitValue()">검색</button>
     </main>
     <hr>
+    <div>
+
+    </div>
     <section>
         <div class="section-result">
         </div>
@@ -85,27 +88,47 @@
                     day: form.day.value
                 }
             }).then((res) => {
-
-                // const newDiv = document.createElement('div');
-                // newDiv.innerHTML = res.data.detailTable;
-                // document.querySelector('.section-result').appendChild(newDiv);
-
-                //section-result의 개수
+                //비동기니까 기존에 있던 div를 지워줘야함
                 const sectionResult = document.querySelectorAll('.section-result div').length;
                 if (sectionResult > 0) {
                     for (let i = 0; i < sectionResult; i++) {
                         document.querySelector('.section-result div').remove();
                     }
                 }
+                //결과값
+                console.log(res)
                 for (let i = 0; i < res.data.length; i++) {
                     const newDiv = document.createElement('div');
-                    newDiv.innerHTML = res.data[i];
+                    newDiv.classList.add('newDiv');
+                    newDiv.innerHTML = i + 1 + '번 루트: ' + res.data[i][0] + '<button type="button" onclick="bookmark(' + res.data[i][1] + ')"><img src="https://ifh.cc/g/wLBwdH.png"></button>';
                     document.querySelector('.section-result').appendChild(newDiv);
                 }
-
-
             })
+            count = document.querySelectorAll('newDiv').length;
+            console.log(count);
         }
+
+
+        async function bookmark(routeId) {
+            try {
+                const response = await axios({ //해당 즐겨찾기 버튼의 route_id의 값을 post로 write페이지에 보내줌.
+                    method: "POST",
+                    url: "/inshim/essay/write",
+                    data: {
+                        routeId: routeId,
+                    },
+                });
+                const { success } = response.data;
+                if (success) {
+                    alert("즐겨찾기 완료!");
+                } else {
+                    alert("즐겨찾기 실패");
+                }
+            } catch (error) {
+                alert("api 요청 오류", error);
+            }
+        }
+
 
 
     </script>

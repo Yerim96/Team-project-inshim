@@ -1,4 +1,6 @@
 const models = require('../models');
+const { sequelize } = require("../models/index");
+
 
 exports.index = (req, res) => {
     res.render("index.ejs")
@@ -46,7 +48,7 @@ exports.detail = (req, res) => {
         models.detail.findAll().then((data) => {
             detailArray = [];
             for (let j = 0; j < data.length; j++) {
-                detailArray.push(data[j].dataValues.detail_comment)
+                detailArray.push([data[j].dataValues.detail_comment, j + 1])
             }
             res.send(detailArray)
         })
@@ -65,7 +67,7 @@ exports.detail = (req, res) => {
             models.detail.findAll().then((dataa) => {
                 detailArray = [];
                 for (let j = 0; j < data.length; j++) {
-                    detailArray.push(dataa[data[j].dataValues.route_id - 1].dataValues.detail_comment)
+                    detailArray.push([dataa[data[j].dataValues.route_id - 1].dataValues.detail_comment, data[j].dataValues.route_id])
                 }
                 console.log('detailArray:', detailArray)
                 res.send(detailArray)
@@ -85,7 +87,7 @@ exports.detail = (req, res) => {
             models.detail.findAll().then((dataa) => {
                 detailArray = [];
                 for (let j = 0; j < data.length; j++) {
-                    detailArray.push(dataa[data[j].dataValues.route_id - 1].dataValues.detail_comment)
+                    detailArray.push([dataa[data[j].dataValues.route_id - 1].dataValues.detail_comment, data[j].dataValues.route_id])
                 }
                 console.log('detailArray:', detailArray)
                 res.send(detailArray)
@@ -109,7 +111,7 @@ exports.detail = (req, res) => {
             models.detail.findAll().then((dataa) => {
                 detailArray = [];
                 for (let j = 0; j < data.length; j++) {
-                    detailArray.push(dataa[data[j].dataValues.route_id - 1].dataValues.detail_comment)
+                    detailArray.push([dataa[data[j].dataValues.route_id - 1].dataValues.detail_comment, data[j].dataValues.route_id])
                 }
                 // console.log('detailArray:', detailArray)
                 res.send(detailArray)
@@ -117,3 +119,52 @@ exports.detail = (req, res) => {
         })
     }
 }
+
+//즐겨찾기
+exports.Cpostroute = (req, res) => {
+    const userId = 1;
+    if (userId != undefined) {
+        const routeId = req.body.routeId;
+        // 중복 삽입 여부 확인
+        sequelize
+            .query(
+                "SELECT COUNT(*) AS count FROM bookmark WHERE F_userinfo_id = ? AND F_route_id = ?",
+                {
+                    replacements: [userId, routeId],
+                    type: sequelize.QueryTypes.SELECT,
+                }
+            )
+            .then((results) => {
+                const count = results[0].count;
+                if (count === 0) {
+                    // 중복이 아닌 경우에만 삽입 수행
+                    sequelize
+                        .query(
+                            "INSERT INTO bookmark (F_userinfo_id, F_route_id) VALUES (?, ?)",
+                            {
+                                replacements: [userId, routeId],
+                                type: sequelize.QueryTypes.INSERT,
+                            }
+                        )
+                        .then(() => {
+                            console.log("데이터베이스에 삽입 완료");
+                            res.send({ success: true });
+                        })
+                        .catch((error) => {
+                            console.log("데이터베이스 삽입 오류:", error);
+                            res.send({ success: false });
+                        });
+                } else {
+                    console.log("이미 존재하는 데이터입니다.");
+                    res.send({ success: false });
+                }
+            })
+            .catch((error) => {
+                console.error("데이터베이스 조회 오류:", error);
+                res.send({ success: false });
+            });
+        console.log("userId: " + userId); // 로그인 후에
+    } else {
+        console.log("로그인 먼저!");
+    }
+};

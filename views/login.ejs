@@ -20,53 +20,16 @@
       <input
         name="user_pw"
         id="user-pw"
-        type="text"
+        type="password"
         placeholder="비밀번호"
         required
       />
       <br />
       <button type="button" onclick="loginFunc()">로그인</button>
-      <button type="button" onclick="location.href='/register'">
+      <button type="button" onclick="location.href='/inshim/register'">
         회원가입
       </button>
     </form>
-
-    <script>
-      const form = document.forms["login"];
-      function loginFunc() {
-        const userIdInput = form.user_id;
-        const userId = userIdInput.value;
-        const userPwInput = form.user_pw;
-        const userPw = userPwInput.value;
-
-        if (userId === "") {
-          alert("아이디를 입력해주세요");
-          userIdInput.focus();
-          return false;
-        }
-
-        if (userPw === "") {
-          alert("비밀번호를 입력해주세요");
-          userPwInput.focus();
-          return false;
-        }
-
-        axios({
-          method: "post",
-          url: "/login",
-          data: {
-            user_id: form.user_id.value,
-            user_pw: form.user_pw.value,
-          },
-        }).then((res) => {
-          if (res.data.result) {
-            alert(res.data.message);
-            location.href = "/";
-          } else {
-            alert(res.data.message);
-          }
-        });
-      }
-    </script>
+    <script src="/js/login.js"></script>
   </body>
 </html>

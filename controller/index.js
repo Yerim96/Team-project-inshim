@@ -12,6 +12,10 @@ exports.Cget_register = (req, res) => {
   res.render("register");
 };
 
+exports.Cget_mypage = (req, res) => {
+  res.render("mypage");
+};
+
 ///상세페이지
 exports.Cget_intro_seoul = (req, res) => {
   res.render("intro_seoul");

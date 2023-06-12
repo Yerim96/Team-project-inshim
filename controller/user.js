@@ -118,6 +118,7 @@ exports.Cpost_login = async (req, res) => {
         res.send({
           result: true,
           message: "로그인에 성공했습니다.",
+          loggedin_userinfo_id: result.dataValues.userinfo_id,
           loggedin_user_name: result.dataValues.user_name,
         });
       });
@@ -131,7 +132,6 @@ exports.Cpost_login = async (req, res) => {
 };
 
 exports.Cpost_logout = async (req, res) => {
-  req.session.destroy((err) => {
-    res.redirect("/");
-  });
+  console.log(req.body.loggedin_user);
+  console.log(req.body.loggedin_user.loggedin_user_name);
 };

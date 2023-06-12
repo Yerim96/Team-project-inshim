@@ -1,4 +1,4 @@
-window.addEventListener("load", checkIfLoggedIn());
+window.addEventListener("load", checkIfLoggedIn);
 
 function checkIfLoggedIn() {
   if (sessionStorage.getItem("loggedin_user")) {
@@ -32,6 +32,26 @@ function logoutFunc() {
       sessionStorage.clear();
       alert(res.data.message);
       location.href = "/inshim";
+    }
+  });
+}
+
+function pwChangeFunc() {
+  const form = document.forms["change_password_form"];
+
+  axios({
+    method: "post",
+    url: "/inshim/mypage/changePassword",
+    data: {
+      userinfo_id: JSON.parse(sessionStorage.getItem("loggedin_user"))
+        .userinfo_id,
+      current_password: form.currentPassword.value,
+      new_password: form.newPassword.value,
+    },
+  }).then((res) => {
+    if (res.data.result) {
+      alert(res.data.message);
+      location.href = "/inshim/mypage";
     }
   });
 }

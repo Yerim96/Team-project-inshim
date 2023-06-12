@@ -19,7 +19,7 @@ function loginFunc() {
 
   axios({
     method: "post",
-    url: "/login",
+    url: "/inshim/login",
     data: {
       user_id: form.user_id.value,
       user_pw: form.user_pw.value,
@@ -33,7 +33,7 @@ function loginFunc() {
 
       alert(res.data.message);
       sessionStorage.setItem("loggedin_user", JSON.stringify(loggedin_user));
-      location.href = "/";
+      location.href = "/inshim";
     } else {
       alert(res.data.message);
     }

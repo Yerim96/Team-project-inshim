@@ -26,9 +26,11 @@ function loginFunc() {
     },
   }).then((res) => {
     if (res.data.result) {
-      console.log(res.data);
       alert(res.data.message);
-      sessionStorage.setItem("loggedin_user", JSON.stringify(loggedin_user));
+      sessionStorage.setItem(
+        "loggedin_user",
+        JSON.stringify(res.data.loggedin_user)
+      );
       location.href = "/inshim";
     } else {
       alert(res.data.message);

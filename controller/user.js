@@ -139,7 +139,6 @@ exports.Cpost_logout = async (req, res) => {
 };
 
 exports.getUserInfo = async (req, res) => {
-  console.log(req.body.userinfo_id);
   const userInfo = await models.User.findOne({
     where: {
       userinfo_id: req.body.userinfo_id,

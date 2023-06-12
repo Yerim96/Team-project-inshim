@@ -74,7 +74,7 @@
                   <%= data[i].route_day %>
                 </td>
                 <td>
-                  <%= data[i].route_start %>
+                  <%= data[i].detail_comment %>
                 </td>
               </tr>
               <% } %>
@@ -101,7 +101,17 @@
       </div>
       </br>
       <script>
+        //세션값 받았는지 테스트
+        window.addEventListener("load", checkIfLoggedIn);
+          function checkIfLoggedIn() {
+          console.log(JSON.parse(sessionStorage.getItem("loggedin_user"))
+                    .userinfo_id)
+          }
+
         async function createWrite() {
+
+
+
           const title = document.getElementById("Etitle").value;
           const content = document.getElementById("Econtent").value;
 

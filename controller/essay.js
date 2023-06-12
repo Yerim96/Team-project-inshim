@@ -1,6 +1,6 @@
 const models = require("../models");
 const { sequelize } = require("../models/index");
-
+const session = require("express-session");
 // exports.index = (req, res) => {
 //   res.render("index");
 // };
@@ -32,14 +32,15 @@ exports.Cgetroute = (req, res) => {
   //   const userId = req.session.userId;
   const userId = 1;
   models.Route.findAll().then((result) => {
-    console.log(userId); //로그인했을때 세션값 들어오는것 확인
-    console.log(result);
+    // console.log(userId); //로그인했을때 세션값 들어오는것 확인
+    // console.log(result);
     res.render("route", { data: result, userId });
   });
 };
 
 exports.Cpostroute = (req, res) => {
   // const userId = req.session.userId;
+  console.log("내가필요한건:" + req.session);
   const userId = 1;
   if (userId != undefined) {
     const routeId = req.body.routeId;
@@ -99,9 +100,11 @@ exports.Cgetwrite = (req, res) => {
   if (userId) {
     sequelize
       .query(
-        `SELECT * FROM bookmark
-      JOIN route ON bookmark.F_route_id = route.route_id
-      WHERE bookmark.F_userinfo_id = :userId`,
+        `SELECT *
+        FROM bookmark
+        JOIN route ON bookmark.F_route_id = route.route_id
+        JOIN detail ON bookmark.F_route_id = detail.detail_route_id
+        WHERE bookmark.F_userinfo_id = :userId`,
         {
           type: sequelize.QueryTypes.SELECT,
           replacements: { userId: userId },

@@ -26,10 +26,14 @@ app.use(
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/user");
 const essayRouter = require("./routes/essay");
+const routeRouter = require("./routes/route");
+
 
 app.use("/inshim", indexRouter);
 app.use("/inshim", userRouter);
 app.use("/inshim", essayRouter);
+app.use("/inshim", routeRouter);
+
 
 app.get("*", function (req, res) {
   res.render("404");

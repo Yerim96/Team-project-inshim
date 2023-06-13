@@ -84,9 +84,7 @@ html {
   color: black;
   font-family: "KimjungchulMyungjo-Bold", sans-serif;
 }
-nav {
-  border-bottom: 1px solid black;
-}
+
 /* .header-logo a:hover {
     color: var(--highlight-color);
   } */
@@ -113,9 +111,9 @@ nav {
   /* justify-content: center; */
 }
 
-h2 {
-  /* -webkit-text-stroke: 0.3px #b9f3e4; */
-}
+/* h2 {
+  -webkit-text-stroke: 0.3px #b9f3e4;
+} */
 
 table {
   margin-left: 20%;

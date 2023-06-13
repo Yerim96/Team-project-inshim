@@ -44,11 +44,11 @@ exports.Cpostessay = (req, res) => {
   const content = req.body.content;
   const routeDay = req.body.routeDay;
   const routeCity = req.body.routeCity;
-  // console.log(checkboxValue, title, content, routeDay, routeCity);
 
   sequelize
     .query(
-      `INSERT INTO detail_essay ( F_route_id, detail_Etitle, detail_Ecomment, detail_city, detail_day) VALUES ( ?, ?, ?, ?, ?)`,
+      `INSERT INTO detail_essay ( F_route_id, detail_Etitle, detail_Ecomment, detail_city, detail_day) 
+      VALUES ( ?, ?, ?, ?, ?)`,
       {
         replacements: [checkboxValue, title, content, routeCity, routeDay],
         type: sequelize.QueryTypes.INSERT,

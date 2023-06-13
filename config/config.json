@@ -1,11 +1,7 @@
 {
   "development": {
     "username": "kdtuser",
-<<<<<<< HEAD
-    "password": "3809",
-=======
     "password": "1234",
->>>>>>> 34997b28dfff12bb9401e11bf7d9beb75b1adef5
     "database": "inshim",
     "host": "127.0.0.1",
     "dialect": "mysql"

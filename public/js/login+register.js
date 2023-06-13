@@ -1,12 +1,51 @@
-const form = document.forms["register"];
-let userId = document.getElementById("user_id").value;
-let userPw = document.getElementById("user_pw").value;
-let userName = document.getElementById("user_name").value;
-let userCountry = document.getElementById("user_country").value;
+const lform = document.forms["login"];
+
+function loginFunc() {
+  const userIdInput = lform.login_user_id;
+  const userId = userIdInput.value;
+  const userPwInput = lform.login_user_pw;
+  const userPw = userPwInput.value;
+
+  if (userId === "") {
+    alert("아이디를 입력해주세요");
+    userIdInput.focus();
+    return false;
+  }
+
+  if (userPw === "") {
+    alert("비밀번호를 입력해주세요");
+    userPwInput.focus();
+    return false;
+  }
+
+  axios({
+    method: "post",
+    url: "/inshim/login",
+    data: {
+      user_id: userId,
+      user_pw: userPw,
+    },
+  }).then((res) => {
+    if (res.data.result) {
+      alert(res.data.message);
+      sessionStorage.setItem(
+        "loggedin_user",
+        JSON.stringify(res.data.loggedin_user)
+      );
+      location.href = "/inshim";
+    } else {
+      alert(res.data.message);
+    }
+  });
+}
+
+///////////////////////////////////////////////////////////////
+
+const rform = document.forms["register"];
 
 async function checkUserId() {
   let idRegex = /^[a-zA-Z0-9-_]{4,12}$/;
-  const userIdInput = form.user_id;
+  const userIdInput = rform.register_user_id;
   const userId = userIdInput.value;
 
   if (userId === "") {
@@ -43,10 +82,10 @@ async function checkUserId() {
 }
 
 function registFunc() {
-  let userId = document.getElementById("user_id").value;
-  let userPw = document.getElementById("user_pw").value;
-  let userName = document.getElementById("user_name").value;
-  let userCountry = document.getElementById("user_country").value;
+  let userId = document.getElementById("register_user_id").value;
+  let userPw = document.getElementById("register_user_pw").value;
+  let userName = document.getElementById("register_user_name").value;
+  let userCountry = document.getElementById("register_user_country").value;
   let passwordRegex =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/;
 
@@ -71,7 +110,7 @@ function registFunc() {
     }).then((res) => {
       if (res.data.result) {
         alert(res.data.message);
-        location.href = "/inshim/login";
+        location.href = "/inshim";
       } else {
         alert(res.data.message);
       }

@@ -166,6 +166,7 @@ exports.Cpost_login = async (req, res) => {
         user_name: result.dataValues.user_name,
       };
       req.session.save(() => {
+        console.log("session save...");
         res.send({
           result: true,
           message: "로그인에 성공했습니다.",

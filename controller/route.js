@@ -122,7 +122,7 @@ exports.detail = (req, res) => {
 
 //즐겨찾기
 exports.Cpostroute = (req, res) => {
-  const userId = req.session.loggedin_user?.userinfo_id;
+  const userId = 1;
   if (userId != undefined) {
     const routeId = req.body.routeId;
     // 중복 삽입 여부 확인

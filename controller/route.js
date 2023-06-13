@@ -166,5 +166,6 @@ exports.Cpostroute = (req, res) => {
     console.log("userId: " + userId); // 로그인 후에
   } else {
     console.log("로그인 먼저!");
+    res.send({ login: false });
   }
 };

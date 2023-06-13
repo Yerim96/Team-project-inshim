@@ -337,25 +337,48 @@
         }
 
 
+        // async function bookmark(routeId) {
+        //     try {
+        //         const response = await axios({ //해당 즐겨찾기 버튼의 route_id의 값을 post로 write페이지에 보내줌.
+        //             method: "POST",
+        //             url: "/inshim/essay/write",
+        //             data: {
+        //                 routeId: routeId,
+        //             },
+        //         });
+        //         const { success } = response.data;
+        //         if (success) {
+        //             alert("즐겨찾기 완료!");
+        //         } else {
+        //             alert("즐겨찾기 실패");
+        //         }
+        //     } catch (error) {
+        //         alert("api 오류", error);
+        //     }
+        // }
         async function bookmark(routeId) {
-            try {
-                const response = await axios({ //해당 즐겨찾기 버튼의 route_id의 값을 post로 write페이지에 보내줌.
-                    method: "POST",
-                    url: "/inshim/essay/write",
-                    data: {
-                        routeId: routeId,
-                    },
-                });
-                const { success } = response.data;
-                if (success) {
-                    alert("즐겨찾기 완료!");
-                } else {
-                    alert("즐겨찾기 실패");
-                }
-            } catch (error) {
-                alert("로그인을 진행해주세요!", error);
-            }
-        }
+  try {
+    const response = await axios({
+      method: "POST",
+      url: "/inshim/essay/write",
+      data: {
+        routeId: routeId,
+      },
+    });
+    const { success, login } = response.data;
+    if (success) {
+      alert("즐겨찾기 완료!");
+    } else {
+      if (!login) {
+        alert("로그인을 먼저 진행해주세요!");
+      } else {
+        alert("즐겨찾기 실패");
+      }
+    }
+  } catch (error) {
+    alert("API 오류: " + error);
+  }
+}
 
 
 

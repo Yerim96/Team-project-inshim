@@ -2,6 +2,9 @@ window.addEventListener("load", checkIfLoggedIn);
 
 function checkIfLoggedIn() {
   if (sessionStorage.getItem("loggedin_user")) {
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("sub-mypage").style.display = "block";
+
     axios({
       method: "post",
       url: "/inshim/mypage",
@@ -16,7 +19,8 @@ function checkIfLoggedIn() {
         res.data.user_country;
     });
   } else {
-    location.href = "/404";
+    document.getElementById("login-section").style.display = "block";
+    document.getElementById("sub-mypage").style.display = "none";
   }
 }
 
@@ -51,7 +55,7 @@ function pwChangeFunc() {
   }).then((res) => {
     if (res.data.result) {
       alert(res.data.message);
-      location.href = "/inshim/mypage";
+      location.href = "/inshim";
     }
   });
 }

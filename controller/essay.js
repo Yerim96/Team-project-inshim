@@ -25,7 +25,6 @@ exports.Cgetwrite = (req, res) => {
           res.render("write", { userId, data: null }); // 빈 데이터를 전달
         } else {
           res.render("write", { userId, data: results });
-          res.send({ success: false });
         }
       })
       .catch((error) => {
@@ -34,6 +33,7 @@ exports.Cgetwrite = (req, res) => {
       });
   } else if (userId === undefined) {
     res.status(500).send("로그인을 먼저 진행해주세요!");
+    return;
   }
 };
 

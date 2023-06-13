@@ -1,6 +1,7 @@
 const models = require("../models");
 const { sequelize } = require("../models/index");
 const session = require("express-session");
+
 // exports.index = (req, res) => {
 //   res.render("index");
 // };
@@ -30,7 +31,7 @@ const session = require("express-session");
 
 exports.Cgetroute = (req, res) => {
   //   const userId = req.session.userId;
-  const userId = 1;
+  const userId = req.session.loggedin_user.userinfo_id;
   models.Route.findAll().then((result) => {
     // console.log(userId); //로그인했을때 세션값 들어오는것 확인
     // console.log(result);
@@ -40,8 +41,7 @@ exports.Cgetroute = (req, res) => {
 
 exports.Cpostroute = (req, res) => {
   // const userId = req.session.userId;
-  console.log("내가필요한건:" + req.session);
-  const userId = 1;
+  const userId = req.session.loggedin_user.userinfo_id;
   if (userId != undefined) {
     const routeId = req.body.routeId;
 
@@ -95,8 +95,8 @@ exports.Cpostroute = (req, res) => {
 
 exports.Cgetwrite = (req, res) => {
   // const userId = req.session.userId;
-  const userId = 1;
-  console.log(userId);
+  const userId = req.session.loggedin_user.userinfo_id;
+  // console.log(userId);
   if (userId) {
     sequelize
       .query(
@@ -111,7 +111,7 @@ exports.Cgetwrite = (req, res) => {
         }
       )
       .then((results) => {
-        console.log(results);
+        // console.log(results);
         if (results.length === 0) {
           console.log("데이터값 없음");
           res.render("write", { userId, data: null }); // 빈 데이터를 전달
@@ -135,7 +135,7 @@ exports.Cpostessay = (req, res) => {
   const content = req.body.content;
   const routeDay = req.body.routeDay;
   const routeCity = req.body.routeCity;
-  console.log(checkboxValue, title, content, routeDay, routeCity);
+  // console.log(checkboxValue, title, content, routeDay, routeCity);
 
   sequelize
     .query(
@@ -166,15 +166,15 @@ exports.Cgetessay = (req, res) => {
     )
     .then((result) => {
       res.render("essay", { data: result });
-      console.log("여기");
-      console.log(result);
+      // console.log("여기");
+      // console.log(result);
     });
 };
 
 exports.Cgetidx = (req, res) => {
-  console.log(req.params);
+  // console.log(req.params);
   const numberId = req.params.idx;
-  console.log(numberId);
+  // console.log(numberId);
 
   sequelize
     .query(
@@ -188,7 +188,7 @@ exports.Cgetidx = (req, res) => {
       } else {
         const record = result[numberId - 1]; // 첫 번째 요소 사용
         res.render("essayView", { data: record });
-        console.log(record);
+        // console.log(record);
       }
     });
 };

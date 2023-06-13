@@ -3,7 +3,7 @@ const controller = require("../controller/essay");
 const router = express.Router();
 
 //localhost:PORT/inshim/route
-router.get("/route", controller.Cgetroute);
+// router.get("/route", controller.Cgetroute);
 
 //localhost:PORT/inshim/write
 router.post("/essay/write", controller.Cpostroute);

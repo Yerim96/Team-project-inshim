@@ -28,15 +28,15 @@ const session = require("express-session");
 //   });
 // };
 
-exports.Cgetroute = (req, res) => {
-  //   const userId = req.session.userId;
-  const userId = 1;
-  models.Route.findAll().then((result) => {
-    // console.log(userId); //로그인했을때 세션값 들어오는것 확인
-    // console.log(result);
-    res.render("route", { data: result, userId });
-  });
-};
+// exports.Cgetroute = (req, res) => {
+//   //   const userId = req.session.userId;
+//   const userId = 1;
+//   models.Route.findAll().then((result) => {
+//     // console.log(userId); //로그인했을때 세션값 들어오는것 확인
+//     // console.log(result);
+//     res.render("route", { data: result, userId });
+//   });
+// };
 
 exports.Cpostroute = (req, res) => {
   // const userId = req.session.userId;

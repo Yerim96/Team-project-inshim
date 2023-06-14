@@ -237,3 +237,19 @@ form[name="register"] input {
   width: 70%;
   padding: 7px;
 }
+
+#register_user_country {
+  position: relative;
+  width: 20%;
+  top: -35px;
+  left: 30%;
+  padding: 7px;
+  font-size: 14px;
+  color: #858585;
+  border-radius: 4px;
+  border-color: #ccc;
+}
+
+input::placeholder {
+  font-size: 14px;
+}

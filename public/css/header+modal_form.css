@@ -68,7 +68,7 @@
   color: var(--highlight-color);
 }
 
-#sub-mypage a {
+#sub-mypage .mypage {
   padding: 40px;
   font-size: var(--font-sm);
   font-weight: var(--font-weight-thin);
@@ -76,7 +76,7 @@
   color: var(--lightblack);
 }
 
-#sub-mypage a:hover {
+#sub-mypage .mypage:hover {
   color: var(--highlight-color);
 }
 
@@ -100,6 +100,10 @@
   text-decoration: none;
   color: black;
   font-family: "KimjungchulMyungjo-Bold", sans-serif;
+}
+
+.header-logo a:hover {
+  color: black;
 }
 
 .main-menu {

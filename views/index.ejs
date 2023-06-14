@@ -109,7 +109,7 @@
                       name="register_user_id"
                       id="register_user_id"
                       type="text"
-                      placeholder="아이디를 입력해주세요"
+                      placeholder="4~12자리의 영문, 숫자, 대시(-), 밑줄(_)"
                     />
                     <button
                       type="button"
@@ -125,7 +125,7 @@
                       name="register_user_pw"
                       id="register_user_pw"
                       type="password"
-                      placeholder="비밀번호를 입력해주세요"
+                      placeholder="8~20자리의 영문 대/소문자, 숫자, 특수문자"
                     />
                     <br />
                     <label for="register_user_name">이름</label>
@@ -139,12 +139,19 @@
                     <br />
                     <label for="register_user_country">국적</label>
                     <br />
-                    <input
-                      name="register_user_country"
-                      id="register_user_country"
-                      type="text"
-                      placeholder="국적을 입력해주세요"
-                    />
+                    <select name="register_user_country" id="register_user_country">
+                      <option value="" disabled selected>국적 선택</option>
+                      <option value="대한민국">대한민국</option>
+                      <option value="미국">미국</option>
+                      <option value="중국">중국</option>
+                      <option value="일본">일본</option>
+                      <option value="대만">대만</option>
+                      <option value="태국">태국</option>
+                      <option value="홍콩">홍콩</option>
+                      <option value="베트남">베트남</option>
+                      <option value="유럽">유럽</option>
+                      <!-- 추가 국가 -->
+                    </select>
                     <br />
                   </form>
                 </div>

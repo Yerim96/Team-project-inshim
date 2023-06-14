@@ -42,6 +42,9 @@ function loginFunc() {
 ///////////////////////////////////////////////////////////////
 
 const rform = document.forms["register"];
+let isUserIdValid = false;
+
+const registerBtn = document.getElementById("register-btn");
 
 async function checkUserId() {
   let idRegex = /^[a-zA-Z0-9-_]{4,12}$/;
@@ -60,28 +63,32 @@ async function checkUserId() {
     userIdInput.focus();
     return false;
   } else {
-    try {
-      let response = await axios({
-        method: "post",
-        url: "/inshim/register/checkUserId",
-        data: {
-          user_id: userId,
-        },
-      }).then((res) => {
+    axios({
+      method: "post",
+      url: "/inshim/register/checkUserId",
+      data: {
+        user_id: userId,
+      },
+    })
+      .then((res) => {
         if (res.data.result) {
+          isUserIdValid = false;
+          registerBtn.setAttribute("disabled", "true");
           alert(res.data.message);
         } else {
+          isUserIdValid = true;
+          registerBtn.removeAttribute("disabled");
           alert(res.data.message);
         }
+      })
+      .catch((err) => {
+        alert("아이디 중복 검사 중 오류 발생하였습니다.");
+        userIdInput.focus();
       });
-    } catch (error) {
-      alert("아이디 중복 검사 중 오류 발생하였습니다.");
-      userIdInput.focus();
-    }
   }
 }
 
-function registFunc() {
+async function registFunc() {
   let userId = document.getElementById("register_user_id").value;
   let userPw = document.getElementById("register_user_pw").value;
   let userName = document.getElementById("register_user_name").value;
@@ -97,8 +104,8 @@ function registFunc() {
       "비밀번호는 8~20자리의 영문 대문자, 소문자, 숫자, 특수문자(!@#$%^&*)가 포함되어야 합니다."
     );
     return false;
-  } else {
-    axios({
+  } else if (isUserIdValid) {
+    await axios({
       method: "post",
       url: "/inshim/register",
       data: {
@@ -115,6 +122,8 @@ function registFunc() {
         alert(res.data.message);
       }
     });
+  } else {
+    alert("아이디 중복 검사를 통과해야 합니다.");
   }
 }
 
@@ -175,9 +184,11 @@ function pwChangeFunc() {
       new_password: form.newPassword.value,
     },
   }).then((res) => {
-    if (res.data.result) {
+    if (res.data.result === true) {
       alert(res.data.message);
       location.href = "/inshim";
+    } else if (res.data.result === false) {
+      alert(res.data.message);
     }
   });
 }
